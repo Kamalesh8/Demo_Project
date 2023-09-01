@@ -1,1 +1,1 @@
-# myRepoForJavaApp
+# Java App Repo
