@@ -36,11 +36,19 @@ pipeline {
             steps {
             echo "From develop branch"
              withSonarQubeEnv("sonarserver") {
-                sh "mvn sonar:sonar -f MyWebApp/pom.xml"
-                if (sonarserver.getResult() == "SUCCESS" ) {
-                    echo " Sonar Executed Successfully !"
-                }
+                sh "mvn sonar:sonar -f MyWebApp/pom.xml"                
              } 
+            }
+        }
+        stage ("SonarScan Result") {
+            steps {
+                withSonarQubeEnv("sonarserver"){
+                    script {
+                        if (sonarserver.getResult() == "SUCCESS" ) {
+                            echo " Sonar Executed Successfully !"
+                        }
+                    }
+                }                
             }
         }
     }
