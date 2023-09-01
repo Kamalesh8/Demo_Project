@@ -29,16 +29,16 @@ pipeline {
         }
         stage ("Code Scan develop Branch") {
 
-             when {
+            when {
                 branch 'develop'
                 expression { params.skip_test != true }
             }
             steps {
             echo "From develop branch"
              withSonarQubeEnv("sonarserver") {
-                sh "mvn sonar:sonar -f MyWebApp/pom.xml"
+                sh "mvn sonar:sonar -f MyWebApp/pom.xml"                
              } 
             }
-        }
+        }        
     }
 }
