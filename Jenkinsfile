@@ -1,6 +1,8 @@
 pipeline {
     agent { label 'docker-slave' }
-
+    parameters {
+        booleanParam(name: 'skip_test', defaultValue: false, description: 'Set to true to skip the test stage')
+    }
     stages {
         
         stage("Pull code") {
@@ -13,22 +15,26 @@ pipeline {
             }
         }
         
-        stage ("Code Scan") {
+        stage ("Code Scan Main Branch") {
             when {
-                branch 'develop'
+                branch 'main'
+                expression { params.skip_test != false }
             }
             steps {
-             echo "From Develop Branch"   
+             echo "From Main Branch"   
              withSonarQubeEnv("sonarserver") {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"
              } 
-            }
+            }           
+        }
+        stage ("Code Scan develop Branch") {
 
-            when {
-                branch 'main'
+             when {
+                branch 'develop'
+                expression { params.skip_test != true }
             }
             steps {
-            echo "From Main branch"
+            echo "From develop branch"
              withSonarQubeEnv("sonarserver") {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"
              } 
