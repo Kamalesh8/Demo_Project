@@ -44,7 +44,7 @@ pipeline {
             steps {
                 withSonarQubeEnv("sonarserver"){
                     script {
-                        if (sonarserver.getResult() == "SUCCESS" ) {
+                        if (${env.sonarserver}.getResult() == "SUCCESS" ) {
                             echo " Sonar Executed Successfully !"
                         }
                     }
