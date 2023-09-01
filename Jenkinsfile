@@ -39,6 +39,12 @@ pipeline {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"                
              } 
             }
-        }        
+        }
+
+        stage ("code coverage") {
+            steps {
+                jacoco()
+            }
+        }
     }
 }
