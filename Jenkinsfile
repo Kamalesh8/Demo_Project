@@ -39,17 +39,6 @@ pipeline {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"                
              } 
             }
-        }
-        stage ("SonarScan Result") {
-            steps {
-                withSonarQubeEnv("sonarserver"){
-                    script {
-                        if (${env.sonarserver}.getResult() == "SUCCESS" ) {
-                            echo " Sonar Executed Successfully !"
-                        }
-                    }
-                }                
-            }
-        }
+        }        
     }
 }
