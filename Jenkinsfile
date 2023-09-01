@@ -18,7 +18,7 @@ pipeline {
         stage ("Code Scan Main Branch") {
             when {
                 branch 'main'
-                expression { params.skip_test != false }
+                expression { params.skip_test == false }
             }
             steps {
              echo "From Main Branch"   
