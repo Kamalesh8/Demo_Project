@@ -11,7 +11,7 @@ pipeline {
         
         stage ("Build") {
             steps {
-                sh "mvn clean install -f MyWebApp/pom.xml"
+                sh "mvn clean install package -f MyWebApp/pom.xml"
             }
         }
         
@@ -38,12 +38,6 @@ pipeline {
              withSonarQubeEnv("sonarserver") {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"                
              } 
-            }
-        }
-
-        stage ("code coverage") {
-            steps {
-                jacoco()
             }
         }
     }
