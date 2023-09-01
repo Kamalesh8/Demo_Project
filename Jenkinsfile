@@ -13,22 +13,22 @@ pipeline {
             }
         }
         
-        stage ("Code Scan Develop Branch") {
+        stage ("Code Scan") {
             when {
                 branch 'develop'
             }
             steps {
+             echo "From Develop Branch"   
              withSonarQubeEnv("sonarserver") {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"
              } 
             }
-        }
 
-        stage ("Code Scan main Branch") {
             when {
                 branch 'main'
             }
             steps {
+            echo "From Main branch"
              withSonarQubeEnv("sonarserver") {
                 sh "mvn sonar:sonar -f MyWebApp/pom.xml"
              } 
